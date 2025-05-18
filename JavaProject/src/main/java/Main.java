@@ -26,6 +26,5 @@ public class Main {
         // try getting deleted URL
         String originalUrl2 = getURL.getOriginalUrl(shortUrl);
         System.out.println("originalUrl2 is : " + originalUrl2);
-
     }
 }
