@@ -1,12 +1,26 @@
-package UrlShortner.Dao;
+package Dao;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 
-@Data
-public class CreateURLDao {
+public class URLDao {
+    // making URLDao Class Sigleton
+
+    private static final URLDao instance = new URLDao();
+
+    public static URLDao getInstance() {
+        return instance;
+    }
+
     private Map<String, String> shortUrlVSOriginalUrl = new HashMap<>();
+
+    @Setter
+    @Getter
     private Integer UniqueCount = 0;
 
 //    public CreateURLDao(Map<String, String> shortUrlVSOriginalUrl) {
@@ -25,29 +39,28 @@ public class CreateURLDao {
         return shortUrl;
     }
 
-    public Integer getUniqueCount() {
-        return UniqueCount;
-    }
-
-    public void setUniqueCount(Integer uniqueCount) {
-        UniqueCount = uniqueCount;
-    }
-
     private void addUrl(String shortUrl, String originalUrl) {
         this.shortUrlVSOriginalUrl.put(shortUrl, originalUrl);
         this.setUniqueCount(this.getUniqueCount() + 1);
     }
+    public String getOriginalUrl(String shortUrl){
+        return this.shortUrlVSOriginalUrl.get(shortUrl);
+    }
+    public Boolean removeUrl(String shortUrl){
+        this.shortUrlVSOriginalUrl.remove(shortUrl);
+        return this.shortUrlVSOriginalUrl.get(shortUrl) == null ? Boolean.TRUE :Boolean.FALSE;
+    }
 
     private String generateMd5hash(String originalUrl) {
         try {
-            java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
+            MessageDigest md = MessageDigest.getInstance("MD5");
             byte[] array = md.digest(originalUrl.getBytes());
             StringBuilder sb = new StringBuilder();
             for (byte b : array) {
                 sb.append(String.format("%02x", b));
             }
             return sb.toString();
-        } catch (java.security.NoSuchAlgorithmException e) {
+        } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
     }
