@@ -34,7 +34,7 @@ public class URLDao {
     }
 
     public String CreateAndStoreUrl(String originalUrl, Integer userId) {
-        String shortUrl = generateUrl(originalUrl, userId);
+        String shortUrl ="https://www." + generateUrl(originalUrl, userId);
         addUrl(shortUrl, originalUrl);
         return shortUrl;
     }
