@@ -6,16 +6,17 @@ import java.util.List;
 
 @Data
 public class ParkingFloor {
-    //List<ParkingSlot> slots;
-    List<ParkingSlot> freeSlots;
+
+    public List<ParkingSlot> freeSlots;
     public ParkingFloor(List<ParkingSlot> slots){
         this.freeSlots=slots;
     }
     ParkingSlot allocateSlot(String vehicleNo){
         if(!freeSlots.isEmpty()){
-            ParkingSlot freeSlot = freeSlots.get(freeSlots.size()-1);
-            freeSlots.remove(freeSlots.size()-1);
+            int n= freeSlots.size();
+            ParkingSlot freeSlot = freeSlots.get(n-1);
             freeSlot.assignSlot(vehicleNo);
+            freeSlots.remove(freeSlot);
             return freeSlot;
         }
         else throw new RuntimeException("No FreeSlots Are available, Parking is Full !!!!");

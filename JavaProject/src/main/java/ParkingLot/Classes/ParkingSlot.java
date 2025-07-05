@@ -4,12 +4,11 @@ import lombok.Data;
 
 @Data
 public class ParkingSlot {
-    Boolean isOccupied;
-    String parkedVehicle;
-    ParkingSlot assignSlot(String vehicleNo){
+    Boolean isOccupied = false;
+    String parkedVehicle = null;
+    void assignSlot(String vehicleNo){
         this.isOccupied=true;
         this.parkedVehicle= vehicleNo;
-        return this;
     }
     void removeSlot (){
         this.isOccupied=false;

@@ -7,6 +7,7 @@ import java.util.List;
 @Data
 public class ParkingLot {
     List<ParkingFloor> floors;
-    int parkingLotId;
-
+    public ParkingLot (List<ParkingFloor> floors){
+        this.floors=floors;
+    }
 }
